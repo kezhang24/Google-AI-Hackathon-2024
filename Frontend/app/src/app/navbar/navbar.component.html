@@ -1,0 +1,20 @@
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img
+          src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.webp"
+          class="me-2"
+          height="20"
+          alt=""
+          loading="lazy"
+        />
+        <small>AI Chef</small>
+      </a>
+      <div class="d-flex align-items-center">
+        <div *ngIf="authService.currentUserSig()">
+            {{ getUsername() }}
+            <span (click) = "logout()" class="logout ms-1 text-black">Logout</span>
+        </div>
+      </div>
+    </div>
+  </nav>
