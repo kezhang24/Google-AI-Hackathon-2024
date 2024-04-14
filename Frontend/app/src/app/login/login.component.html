@@ -1,0 +1,17 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="email">Email</label>
+      <input type="email" formControlName="email" id="email" placeholder="Enter email">
+      <div *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)">
+        <div *ngIf="form.get('email')?.errors?.['required']">Email is required</div>
+      </div>
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input type="password" formControlName="password" id="password" placeholder="Enter password">
+      <div *ngIf="form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)">
+        <div *ngIf="form.get('password')?.errors?.['required']">Password is required</div>
+      </div>
+    </div>
+    <button type="submit" [disabled]="form.invalid">Submit</button>
+  </form>

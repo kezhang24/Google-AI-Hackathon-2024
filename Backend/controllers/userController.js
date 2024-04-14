@@ -22,7 +22,8 @@ const signupUser = async (req, res) => {
     try {
         const user = await User.signup(email, password);
 
-        res.status(200).json({ email, user });
+        const accessToken = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+        res.status(200).json({ email, user, accessToken });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -44,6 +45,7 @@ const refreshToken = async (req, res) => {
     });
   };
 
+// Uses token to find current user information
 const getUser = async (req, res) => {
     try {
         const { userId } = req.user;
