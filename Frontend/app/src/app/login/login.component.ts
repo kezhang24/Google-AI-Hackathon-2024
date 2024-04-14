@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginResponse } from '../types/user.interface';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -20,6 +20,11 @@ export class LoginComponent {
   http = inject(HttpClient);
   errorMessage: String | undefined = undefined;
   
+  ngOnInit(): void {
+    if(this.authService.currentUserSig()) {
+      this.router.navigateByUrl('/');
+    }
+  }
 
   form = this.fb.nonNullable.group({
     email: ['', Validators.required],
