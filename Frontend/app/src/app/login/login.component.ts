@@ -17,7 +17,9 @@ export class LoginComponent {
   fb = inject(FormBuilder);
   router = inject(Router);
   authService = inject(AuthService);
-  http = inject(HttpClient)
+  http = inject(HttpClient);
+  errorMessage: String | undefined = undefined;
+  
 
   form = this.fb.nonNullable.group({
     email: ['', Validators.required],
@@ -33,6 +35,13 @@ export class LoginComponent {
       localStorage.setItem('token', response.accessToken);
       this.authService.currentUserSig.set(response);
       this.router.navigateByUrl('/');
-    })
+      },
+      (error) => {
+        if(error && error.error && error.error.error) {
+          this.errorMessage = error.error.error;
+        }
+      }
+  
+    )
   }
 }

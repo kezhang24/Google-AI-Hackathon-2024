@@ -19,6 +19,7 @@ export class RegisterComponent {
   http = inject(HttpClient);
   authServce = inject(AuthService);
   router = inject(Router);
+  errorMessage: String | undefined = undefined;
 
   form = this.fb.nonNullable.group({
     email: ['', Validators.required],
@@ -34,6 +35,13 @@ export class RegisterComponent {
       localStorage.setItem('token', response.accessToken);
       this.authServce.currentUserSig.set(response);
       this.router.navigateByUrl('/');
-    })
+      },
+      (error) => {
+        if(error && error.error && error.error.error) {
+          this.errorMessage = error.error.error;
+        }
+      }
+  
+    )
   }
 }

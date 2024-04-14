@@ -1,4 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
     <div>
       <label for="email">Email</label>
       <input type="email" formControlName="email" id="email" placeholder="Enter email">
