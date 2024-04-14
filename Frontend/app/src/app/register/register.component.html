@@ -1,19 +1,39 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-    <div>
-      <label for="email">Email</label>
-      <input type="email" formControlName="email" id="email" placeholder="Enter email">
-      <div *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)">
-        <div *ngIf="form.get('email')?.errors?.['required']">Email is required</div>
+<div class="container">
+  <div class="d-flex flex-row justify-content-center align-items-center mt-5">
+    <h3 class=""> Register </h3>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row login-container">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" formControlName="email" id="email" class="form-control" placeholder="Enter email">
+          <div *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)" class="error">
+            <div *ngIf="form.get('email')?.errors?.['required']" class="error">Email is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" formControlName="password" id="password" class="form-control" placeholder="Enter password">
+          <div *ngIf="form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)" class="error">
+            <div *ngIf="form.get('password')?.errors?.['required']" class="error">Password is required</div>
+          </div>
+          <button type="submit" [disabled]="form.invalid" class="btn btn-success position-absolute mt-2">Register</button>
+          <a routerLink="/login">
+            <button class="cancel btn btn-success mt-2">
+              Cancel
+            </button>
+            </a>
+          <div class="clearfix"></div>
+        </div>
       </div>
     </div>
-    <div>
-      <label for="password">Password</label>
-      <input type="password" formControlName="password" id="password" placeholder="Enter password">
-      <div *ngIf="form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)">
-        <div *ngIf="form.get('password')?.errors?.['required']">Password is required</div>
+    <div class="row">
+      <div class="col-md-12">
+        <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
       </div>
     </div>
-    <button type="submit" [disabled]="form.invalid">Submit</button>
   </form>
-  
+</div>

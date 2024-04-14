@@ -3,13 +3,13 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginResponse } from '../types/user.interface';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -17,10 +17,16 @@ import { CommonModule } from '@angular/common';
 export class RegisterComponent {
   fb = inject(FormBuilder);
   http = inject(HttpClient);
-  authServce = inject(AuthService);
+  authService = inject(AuthService);
   router = inject(Router);
   errorMessage: String | undefined = undefined;
 
+  ngOnInit(): void {
+    if(this.authService.currentUserSig()) {
+      this.router.navigateByUrl('/');
+    }
+  }
+  
   form = this.fb.nonNullable.group({
     email: ['', Validators.required],
     password: ['', Validators.required]
@@ -33,7 +39,7 @@ export class RegisterComponent {
     .subscribe((response) => {
       console.log('response', response);
       localStorage.setItem('token', response.accessToken);
-      this.authServce.currentUserSig.set(response);
+      this.authService.currentUserSig.set(response);
       this.router.navigateByUrl('/');
       },
       (error) => {
