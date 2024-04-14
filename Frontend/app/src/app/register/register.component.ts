@@ -26,9 +26,10 @@ export class RegisterComponent {
       this.router.navigateByUrl('/');
     }
   }
-  
+
   form = this.fb.nonNullable.group({
     email: ['', Validators.required],
+    username: ['', Validators.required],
     password: ['', Validators.required]
   });
 

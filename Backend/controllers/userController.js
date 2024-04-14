@@ -18,9 +18,9 @@ const loginUser = async (req, res) => {
 
 //signup
 const signupUser = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, username, password } = req.body;
     try {
-        const user = await User.signup(email, password);
+        const user = await User.signup(email, username, password);
 
         const accessToken = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
         res.status(200).json({ email, user, accessToken });

@@ -4,7 +4,7 @@
     <a routerLink="/register">Register</a>
 </div>
 <div *ngIf="authService.currentUserSig()">
-    {{ authService.currentUserSig()?.email }}
+    {{ getUsername() }}
     <span (click) = "logout()">Logout</span>
 </div>
 <router-outlet></router-outlet>

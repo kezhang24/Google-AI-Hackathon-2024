@@ -39,4 +39,8 @@ export class AppComponent {
     localStorage.setItem('token', '')
     this.authService.currentUserSig.set(null);
   }
+
+  getUsername(): string | undefined {
+    return this.authService.currentUserSig()?.user.username;
+  }
 }
