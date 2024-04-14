@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
+
 //login
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
@@ -43,4 +44,21 @@ const refreshToken = async (req, res) => {
     });
   };
 
-module.exports = { signupUser, loginUser, refreshToken };
+const getUser = async (req, res) => {
+    try {
+        const { userId } = req.user;
+
+        const user = await User.findById(userId);
+
+        if(!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal error' });
+    }
+}
+
+module.exports = { signupUser, loginUser, refreshToken, getUser };
