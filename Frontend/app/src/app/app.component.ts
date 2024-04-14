@@ -6,12 +6,11 @@ import { RegisterComponent } from './register/register.component';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { LoginResponse, User } from './types/user.interface';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoginComponent, RegisterComponent, CommonModule, RouterLink, NgbModule],
+  imports: [RouterOutlet, LoginComponent, RegisterComponent, CommonModule, RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
